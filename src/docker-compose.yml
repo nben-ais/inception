@@ -2,7 +2,7 @@ services:
   nginx:
     container_name: nginx
     build: requirements/nginx
-    ports: 
+    ports:
       - "80:80"
       - "443:443"
 
@@ -11,9 +11,17 @@ services:
     build: requirements/mariadb
     ports:
       - "3306:3306"
+    volumes:
+      - /home/nben-ais/data/mysql:/var/lib/mysql
 
   wordpress:
     container_name: wordpress
     build: requirements/wordpress
     ports:
       - "9000:9000"
+    volumes:
+      - /home/nben-ais/data/html:/var/www/html
+
+# aria_log.00000001  ddl_recovery.log   ib_buffer_pool  ibdata1  multi-master.info  mysql_upgrade_info  sys
+# aria_log_control   debian-10.11.flag  ib_logfile0     ibtmp1   mysql              performance_schema
+# /var/lib/mysql/ib_buffer_pool

@@ -1,6 +1,6 @@
 FROM debian
 
-WORKDIR /app
+WORKDIR /var/www/html
 
 RUN apt update && apt upgrade -y
 
