@@ -1,17 +1,13 @@
-FROM debian
+FROM debian:buster
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y mariadb-server
-
-RUN chmod 777 /var/lib/mysql
+RUN apt-get update && apt-get upgrade -y && apt-get install -y mariadb-server && apt-get update
 
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-RUN mkdir /run/mysqld
-
-RUN chmod 777 /run/mysqld
-
-#CMD ["tail", "-f"]
+RUN service mysql start
 
 CMD ["mysqld"]
+
+#CMD ["tail", "-f"]
