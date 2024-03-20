@@ -6,8 +6,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y mariadb-server &&
 
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-RUN service mysql start
+COPY conf/script.sh /app
 
-CMD ["mysqld"]
-
-#CMD ["tail", "-f"]
+CMD ["bash", "script.sh"]
