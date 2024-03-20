@@ -10,4 +10,6 @@ RUN apt install wget && cd /tmp && wget https://wordpress.org/latest.tar.gz && t
 
 COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 
+COPY conf/wp-config.php /var/www/html/wordpress/wp-config.php
+
 CMD ["php-fpm8.2", "-F"]

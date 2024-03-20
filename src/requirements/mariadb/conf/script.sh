@@ -1,8 +1,5 @@
 service mysql start
-mysql <<EOF
-CREATE USER 'nben-ais'@'%' IDENTIFIED BY 'Nouhaila@123=';
-CREATE DATABASE mydatabase;
-GRANT ALL PRIVILEGES ON mydatabase.* TO 'nben-ais'@'%';
-FLUSH PRIVILEGES;
-EOF
-mysqld
+
+mysql -e "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
+mysql -e "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';"
+mysql -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';"
