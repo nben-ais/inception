@@ -1,9 +1,17 @@
 services:
   nginx:
     container_name: nginx
-    build: requirements/nginx
+    build:
+      context: requirements/nginx
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_HOST=${DB_HOST}
     env_file:
       - .env
+    depends_on:
+      - wordpress
     ports:
       - "80:80"
       - "443:443"
@@ -11,8 +19,6 @@ services:
       - wp_data:/var/www/html/wordpress
     networks:
       - mynetwork
-    depends_on:
-      - wordpress
     restart: always
 
   mariadb:
@@ -26,13 +32,21 @@ services:
         - DB_HOST=${DB_HOST}
     env_file:
       - .env
-    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
     networks:
       - mynetwork
+    restart: always
 
   wordpress:
     container_name: wordpress
-    build: requirements/wordpress
+    build:
+      context: requirements/wordpress
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_HOST=${DB_HOST}
     env_file:
       - .env
     depends_on:
@@ -47,8 +61,15 @@ networks:
   mynetwork:
 
 volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      device: /home/nben-ais/data/mysql
+      o: bind
+      type: none
   wp_data:
     driver: local
     driver_opts:
       type: none
       device: /home/nben-ais/data/html
+      o: bind
