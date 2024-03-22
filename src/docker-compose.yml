@@ -7,19 +7,25 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    restart: always
     volumes:
-      - /home/nben-ais/data/html:/var/www/html
+      - wp_data:/var/www/html/wordpress
     networks:
       - mynetwork
+    depends_on:
+      - wordpress
+    restart: always
 
   mariadb:
     container_name: mariadb
-    build: requirements/mariadb
+    build:
+      context: requirements/mariadb
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_HOST=${DB_HOST}
     env_file:
       - .env
-    ports:
-      - "3306:3306"
     restart: always
     networks:
       - mynetwork
@@ -29,13 +35,20 @@ services:
     build: requirements/wordpress
     env_file:
       - .env
-    ports:
-      - "9000:9000"
-    restart: always
+    depends_on:
+      - mariadb
     volumes:
-      - /home/nben-ais/data/html:/var/www/html
+      - wp_data:/var/www/html/wordpress
     networks:
       - mynetwork
+    restart: always
 
 networks:
   mynetwork:
+
+volumes:
+  wp_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/nben-ais/data/html
