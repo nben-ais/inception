@@ -10,7 +10,7 @@ kill:
 	docker compose -f $(DOCKER_COMPOSE_PATH) kill
 	docker system  prune -a
 	docker volume  prune -a
-	rm -rf ~/data
+	sudo rm -rf ~/data
 
 down:
 	docker compose -f $(DOCKER_COMPOSE_PATH) down
