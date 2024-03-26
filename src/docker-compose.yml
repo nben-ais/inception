@@ -57,6 +57,14 @@ services:
       - mynetwork
     restart: always
 
+  adminer:
+    container_name: adminer
+    build:
+      context: requirements/adminer
+    restart: always
+    ports:
+      - 8080:8080
+
 networks:
   mynetwork:
 

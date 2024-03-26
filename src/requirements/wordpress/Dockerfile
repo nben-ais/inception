@@ -23,6 +23,4 @@ COPY conf/user_admin_script.sh /app/user_admin_script.sh
 
 RUN bash /app/script.sh
 
-#CMD ["php-fpm8.2", "-F"]
-
 CMD ["bash", "/app/user_admin_script.sh"]
