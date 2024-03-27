@@ -1,3 +1,1 @@
-ADD MARIADB VOLUME
-FIX WORDPRESS DOWNLOAD
-ADD TLS
+1 - all certificates paths should be in variable : dockerfile + script.sh (must be created)

@@ -3,11 +3,6 @@ services:
     container_name: nginx
     build:
       context: requirements/nginx
-      args:
-        - DB_NAME=${DB_NAME}
-        - DB_USER=${DB_USER}
-        - DB_PASSWORD=${DB_PASSWORD}
-        - DB_HOST=${DB_HOST}
     env_file:
       - .env
     depends_on:
@@ -25,11 +20,6 @@ services:
     container_name: mariadb
     build:
       context: requirements/mariadb
-      args:
-        - DB_NAME=${DB_NAME}
-        - DB_USER=${DB_USER}
-        - DB_PASSWORD=${DB_PASSWORD}
-        - DB_HOST=${DB_HOST}
     env_file:
       - .env
     volumes:
@@ -42,11 +32,6 @@ services:
     container_name: wordpress
     build:
       context: requirements/wordpress
-      args:
-        - DB_NAME=${DB_NAME}
-        - DB_USER=${DB_USER}
-        - DB_PASSWORD=${DB_PASSWORD}
-        - DB_HOST=${DB_HOST}
     env_file:
       - .env
     depends_on:
@@ -57,13 +42,14 @@ services:
       - mynetwork
     restart: always
 
-  adminer:
-    container_name: adminer
-    build:
-      context: requirements/adminer
-    restart: always
-    ports:
-      - 8080:8080
+  # adminer:
+  #   image: adminer
+  #   build: ./requirements/adminer
+  #   restart: always
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     - mynetwork
 
 networks:
   mynetwork:

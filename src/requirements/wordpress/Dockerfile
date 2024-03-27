@@ -1,26 +1,19 @@
-FROM debian
+FROM debian:bullseye
 
 WORKDIR /var/www/html
-
-ARG DB_NAME
-ARG DB_USER
-ARG DB_PASSWORD
-ARG DB_HOST
 
 RUN apt update && apt upgrade -y
 
 RUN apt-get install php php-fpm php-mysql -y
 
-RUN apt install wget && cd /tmp && wget https://wordpress.org/latest.tar.gz && tar -xvf latest.tar.gz -C /var/www/html
+RUN apt install wget -y && cd /tmp && wget https://wordpress.org/latest.tar.gz && tar -xvf latest.tar.gz -C /var/www/html
 
 RUN apt-get install -y curl
 
-COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 COPY conf/script.sh /app/script.sh
 
-COPY conf/user_admin_script.sh /app/user_admin_script.sh
+RUN chmod 777 /app/script.sh
 
-RUN bash /app/script.sh
-
-CMD ["bash", "/app/user_admin_script.sh"]
+CMD ["bash", "/app/script.sh"]
