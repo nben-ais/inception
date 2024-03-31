@@ -4,7 +4,7 @@ build:
 	mkdir -p ~/data
 	mkdir -p ~/data/html
 	mkdir -p ~/data/mysql
-	docker compose -f $(DOCKER_COMPOSE_PATH) up -d --build
+	docker compose -f $(DOCKER_COMPOSE_PATH) up --build
 
 kill:
 	docker compose -f $(DOCKER_COMPOSE_PATH) kill

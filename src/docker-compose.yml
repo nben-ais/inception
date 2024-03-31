@@ -8,7 +8,6 @@ services:
     depends_on:
       - wordpress
     ports:
-      - "80:80"
       - "443:443"
     volumes:
       - wp_data:/var/www/html/wordpress
@@ -42,14 +41,20 @@ services:
       - mynetwork
     restart: always
 
-  # adminer:
-  #   image: adminer
-  #   build: ./requirements/adminer
-  #   restart: always
-  #   ports:
-  #     - "8080:80"
-  #   networks:
-  #     - mynetwork
+  static-website:
+    build: ./requirements/bonus/staticwebsite
+    ports:
+      - "80:80"
+    restart:
+      always
+
+  adminer:
+    build: ./requirements/bonus/adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - mynetwork
 
 networks:
   mynetwork:

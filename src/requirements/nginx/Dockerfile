@@ -4,15 +4,10 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y nginx && apt-get install -y openssl
 
-RUN mkdir /etc/nginx/ssl && chmod 700 /etc/nginx/ssl
-
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nben-ais.42.fr.key -out /etc/nginx/ssl/nben-ais.42.fr.pem \
-    -subj "/CN=Common Name" \
-    && echo "Certificate generated successfully"
-
 COPY conf/default /etc/nginx/sites-available/default
+RUN mkdir /etc/nginx/ssl
+COPY conf/script.sh /etc/nginx/ssl/script.sh
 
-CMD ["nginx" , "-g", "daemon off;"]
+RUN chmod 777 /etc/nginx/ssl/script.sh
 
-
-#/usr/share/nginx/html
+CMD ["bash" , "/etc/nginx/ssl/script.sh"]
