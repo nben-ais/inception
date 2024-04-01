@@ -8,7 +8,7 @@ RUN apt-get install php php-fpm php-mysql -y
 
 RUN apt install wget -y && cd /tmp && wget https://wordpress.org/latest.tar.gz && tar -xvf latest.tar.gz -C /var/www/html
 
-RUN apt-get install -y curl
+RUN apt-get install -y curl && apt-get install mariadb-client -y
 
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 

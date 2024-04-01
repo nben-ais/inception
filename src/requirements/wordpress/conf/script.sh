@@ -1,8 +1,10 @@
-# Copy config file
 cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
 
+until mariadb -h mariadb -u $DB_USER -p$DB_PASSWORD -e ";"
+do
+    sleep 1
+done
 
-#Edit config file, and set attributes from env
 sed -i "s/localhost/$DB_HOST/g" /var/www/html/wordpress/wp-config.php
 sed -i "s/database_name_here/$DB_NAME/g" /var/www/html/wordpress/wp-config.php
 sed -i "s/username_here/$DB_USER/g" /var/www/html/wordpress/wp-config.php

@@ -10,6 +10,7 @@ kill:
 	docker compose -f $(DOCKER_COMPOSE_PATH) kill
 	docker system  prune -a
 	docker volume  prune -a
+	docker volume rm src_db_data src_wp_data
 	sudo rm -rf ~/data
 
 down:
