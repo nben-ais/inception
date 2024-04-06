@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 WORKDIR /var/www/html/
 
-RUN apt update -y && apt upgrade -y && apt-get install -y nginx
+RUN apt update -y && apt upgrade -y && apt install -y nginx
 
 COPY conf/index.html /var/www/html/
 

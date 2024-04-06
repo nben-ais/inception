@@ -2,6 +2,7 @@ cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-confi
 
 until mariadb -h mariadb -u $DB_USER -p$DB_PASSWORD -e ";"
 do
+    echo "Sleeping 1 sec"
     sleep 1
 done
 

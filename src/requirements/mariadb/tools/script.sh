@@ -9,4 +9,4 @@ mariadb -h localhost -e "FLUSH PRIVILEGES;"
 
 service mariadb stop
 
-exec mysqld_safe
+exec mysqld_safe 
